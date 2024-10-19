@@ -1,6 +1,6 @@
 # Philosophers
 
-Referências
+### Referências
 - [Threads in C: The Dining Philosophers - Playlist by Oceano](https://www.youtube.com/playlist?list=PLc4DnsRQbs6b8vR0Y5p_bWNy7icCSWsHu)
 - [The Dining Philosophers - Article by Oceano](https://medium.com/@jalal92/the-dining-philosophers-7157cc05315)
 - [Exploring the Practical Use of Threads w/ Starbucks - Article by Oceano](https://medium.com/@jalal92/lets-discuss-threads-grab-a-coffee-ad4d4ebf7181)
