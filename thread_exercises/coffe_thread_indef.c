@@ -18,7 +18,6 @@
 static void    *make_coffee(void *name)
 {
     printf("%s is making coffee...\n", (char *)name);
-    sleep(45);
     printf("%s is done making coffee! ☕\n", (char *)name);
 
     return (NULL);
