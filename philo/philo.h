@@ -13,12 +13,12 @@
 #ifndef PHILO_H
 # define PHILO_H
 
-#include <pthread.h>  // mutex: init, destroy, lock, unlock...
 #include <stdbool.h>  // bool, true, false, just like it, can comment later.
 #include <stdio.h>    // printf
 #include <stdlib.h>   // malloc, free
 #include <unistd.h>   // write, usleep
-						// thread: create, join, detach...
+#include <pthread.h>  // mutex: init, destroy, lock, unlock...
+					  // thread: create, join, detach...
 #include <limits.h>   // INT_MAX
 #include <sys/time.h> // gettimeofday -> basic cronometer func.
 
