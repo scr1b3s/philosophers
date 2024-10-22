@@ -13,14 +13,14 @@
 #ifndef PHILO_H
 # define PHILO_H
 
-# include <pthread.h>   // mutex: init, destroy, lock, unlock...
+# include <pthread.h>  // mutex: init, destroy, lock, unlock...
 						// thread: create, join, detach...
-# include <stdbool.h>   // bool, true, false, just like it, can comment later.
-# include <stdio.h>     // printf
-# include <stdlib.h>    // malloc, free
-# include <unistd.h>    // write, usleep
-# include <limits.h>    // INT_MAX
-# include <sys/time.h>  // gettimeofday -> basic cronometer func.
+# include <limits.h>   // INT_MAX
+# include <stdbool.h>  // bool, true, false, just like it, can comment later.
+# include <stdio.h>    // printf
+# include <stdlib.h>   // malloc, free
+# include <sys/time.h> // gettimeofday -> basic cronometer func.
+# include <unistd.h>   // write, usleep
 
 /* Structures.
  *
@@ -33,6 +33,7 @@
  */
 
 typedef pthread_mutex_t	t_mtx;
+typedef struct s_philo	t_philo;
 
 /**
  * Fork
@@ -87,7 +88,7 @@ typedef struct s_fork
  * @var s_table::forks
  * Pòinter to the array of forks.
  */
-struct					s_table
+typedef struct s_table
 {
 	int					num_philos;
 
@@ -131,7 +132,7 @@ struct					s_table
  * @var s_philo::thread_id
  * The thread identifier for the philosopher's thread.
  */
-typedef struct s_philo
+struct					s_philo
 {
 	int					id;
 
@@ -144,7 +145,7 @@ typedef struct s_philo
 
 	pthread_t			thread_id;
 
-	struct s_table		*table;
+	t_table				*table;
 }						t_philo;
 
 #endif
