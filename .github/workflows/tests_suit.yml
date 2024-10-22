@@ -16,7 +16,7 @@ jobs:
         sudo apt-get install -y libcriterion-dev
 
     - name: Compile tests
-      run: gcc -o test_ft_atol test_ft_atol.c -lcriterion
+      run: gcc -o test_ft_atol tests/test_ft_atol.c -lcriterion
 
     - name: Run tests
       run: ./test_ft_atol
