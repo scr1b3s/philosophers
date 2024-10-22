@@ -33,51 +33,6 @@
  */
 
 typedef pthread_mutex_t	t_mtx;
-typedef struct s_table	t_table;
-
-/**
- * Philosopher
- * @struct s_philo
- * @brief Represents a philosopher in the dining philosophers problem.
- *
- * @var s_philo::id
- * The unique identifier for the philosopher.
- *
- * @var s_philo::meals_count
- * The number of meals the philosopher has eaten.
- *
- * @var s_philo::full
- * A boolean indicating if the philosopher has eaten enough.
- *
- * @var s_philo::last_meal_time
- * The time passed since the philosopher's last meal. If this time exceeds
- * the time to die, the philosopher is considered dead. The time is stored
- * in microseconds.
- *
- * @var s_philo::left_fork
- * A pointer to the left fork used by the philosopher.
- *
- * @var s_philo::right_fork
- * A pointer to the right fork used by the philosopher.
- *
- * @var s_philo::thread_id
- * The thread identifier for the philosopher's thread.
- */
-typedef struct s_philo
-{
-	int					id;
-
-	long				meals_count;
-	bool				full;
-	long				last_meal_time;
-
-	t_fork				*left_fork;
-	t_fork				*right_fork;
-
-	pthread_t			thread_id;
-
-	struct s_table		*table;
-}						t_philo;
 
 /**
  * Fork
@@ -147,5 +102,49 @@ struct					s_table
 	t_philo				*philos;
 	t_fork				*forks;
 }						t_table;
+
+/**
+ * Philosopher
+ * @struct s_philo
+ * @brief Represents a philosopher in the dining philosophers problem.
+ *
+ * @var s_philo::id
+ * The unique identifier for the philosopher.
+ *
+ * @var s_philo::meals_count
+ * The number of meals the philosopher has eaten.
+ *
+ * @var s_philo::full
+ * A boolean indicating if the philosopher has eaten enough.
+ *
+ * @var s_philo::last_meal_time
+ * The time passed since the philosopher's last meal. If this time exceeds
+ * the time to die, the philosopher is considered dead. The time is stored
+ * in microseconds.
+ *
+ * @var s_philo::left_fork
+ * A pointer to the left fork used by the philosopher.
+ *
+ * @var s_philo::right_fork
+ * A pointer to the right fork used by the philosopher.
+ *
+ * @var s_philo::thread_id
+ * The thread identifier for the philosopher's thread.
+ */
+typedef struct s_philo
+{
+	int					id;
+
+	long				meals_count;
+	bool				full;
+	long				last_meal_time;
+
+	t_fork				*left_fork;
+	t_fork				*right_fork;
+
+	pthread_t			thread_id;
+
+	struct s_table		*table;
+}						t_philo;
 
 #endif
