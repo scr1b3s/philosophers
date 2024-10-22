@@ -13,7 +13,7 @@ jobs:
     - name: Install dependencies
       run: |
         sudo apt-get update
-        sudo apt-get install -y criterion-dev
+        sudo apt-get install -y libcriterion-dev
 
     - name: Compile tests
       run: gcc -o test_ft_atol test_ft_atol.c -lcriterion
