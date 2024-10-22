@@ -54,7 +54,7 @@ static long	ft_atol(const char *str)
 		res = res * 10 + *str - '0';
 		str++;
 	}
-	if (res == 2147483647)
+	if (res > 2147483647)
 		return (-1);
 	return (res * sign);
 }
