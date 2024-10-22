@@ -146,6 +146,6 @@ struct					s_philo
 	pthread_t			thread_id;
 
 	t_table				*table;
-}						t_philo;
+};
 
 #endif
