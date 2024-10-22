@@ -1,0 +1,22 @@
+name: Criterion Tests
+
+on: [push, pull_request]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Install dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y criterion-dev
+
+    - name: Compile tests
+      run: gcc -o test_ft_atol test_ft_atol.c -lcriterion
+
+    - name: Run tests
+      run: ./test_ft_atol
