@@ -30,7 +30,7 @@ Test(parse_input_suite, test_more_than_6_arguments, .exit_code = 1) {
     parse_input(&table, argc, args);
 }
 
-Test(parse_input_suite, test_valid_input) {
+Test(parse_input_suite, test_valid_input, .exit_code = 0) {
     t_table table;
     char *args[] = {"program", "5", "200", "200", "200"};
     int argc = 5;
@@ -71,7 +71,7 @@ Test(parse_input_suite, test_philosophers_over_INT_MAX, .exit_code = 1) {
     parse_input(&table, argc, args);
 }
 
-Test(parse_input_suite, test_valid_input_without_optional_meals) {
+Test(parse_input_suite, test_valid_input_without_optional_meals, .exit_code = 0) {
     t_table table;
     char *args[] = {"program", "5", "200", "200", "200"};
     int argc = 5;
