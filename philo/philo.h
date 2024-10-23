@@ -22,6 +22,10 @@
 # include <sys/time.h> // gettimeofday -> basic cronometer func.
 # include <unistd.h>   // write, usleep
 
+/* Functions.
+ */
+int		parse_input(t_table *table, int ac, char **av);
+
 /* Structures.
  *
  * Ex. of Execution: ./ philo 5 800 200 200 [5]

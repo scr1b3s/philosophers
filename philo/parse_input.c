@@ -19,6 +19,8 @@
  * @param av The input arguments.
  *                            av[1] av[2] av[3] av[4]  av[5]
  * Ex. of Execution: ./ philo 5     800   200   200    [5]
+ * 									ms	  ms    ms     [times]
+ * And, usleep uses microseconds. We need to treat it.
  */
 
 /*
@@ -31,6 +33,26 @@
  */
 static long		ft_atol(const char *str);
 static size_t	ft_strlen(const char *str);
+
+int	parse_input(t_table *table, int ac, char **av)
+{
+	if (ac < 5 || ac > 6)
+		return (1);
+	table->num_philos = ft_atol(av[1]);
+	table->time_to_die = ft_atol(av[2]) * 1e3;
+	table->time_to_eat = ft_atol(av[3]) * 1e3;
+	table->time_to_sleep = ft_atol(av[4]) * 1e3;
+	if (table->time_to_die < 6e4
+		|| table->time_to_eat < 6e4
+		|| table->time_to_sleep < 6e4)
+		return (-1);
+	if (av[5])
+		table->num_meals = ft_atol(av[5]);
+	else
+		table->num_meals = -1;
+
+	return (0);
+}
 
 static long	ft_atol(const char *str)
 {
