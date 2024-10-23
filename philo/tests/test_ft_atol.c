@@ -1,5 +1,6 @@
 #include <criterion/criterion.h>
 #include <criterion/logging.h>
+#include "../philo.h"
 #include "../parse_input.c" // Include the source file to test
 
 Test(ft_atol, positive_number) {
