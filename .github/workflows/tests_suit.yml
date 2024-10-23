@@ -8,7 +8,7 @@ jobs:
 
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
 
     - name: Install dependencies
       run: |
@@ -21,7 +21,7 @@ jobs:
         gcc -o test_parse philo/tests/test_parse_input.c -lcriterion
 
     - name: Run ft_atol tests
-      run: ./test_ft_atol -v
+      run: ./test_ft_atol --verbose
 
     - name: Run parse_input tests
-      run: ./test_parse -v
+      run: ./test_parse --verbose
