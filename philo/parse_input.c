@@ -49,7 +49,8 @@ int	parse_input(t_table *table, int ac, char **av)
 		|| table->time_to_sleep < 6e4)
 		return (-1);
 
-	if (table->time_to_die == -1
+	if (table->num_philos == -1
+		|| table->time_to_die == -1
 		|| table->time_to_eat == -1
 		|| table->time_to_sleep == -1)
 		return (-1);
