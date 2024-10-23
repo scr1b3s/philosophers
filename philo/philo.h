@@ -150,6 +150,6 @@ struct					s_philo
 
 /* Functions.
  */
-int		parse_input(t_table *table, int ac, char **av);
+void		parse_input(t_table *table, int ac, char **av);
 
 #endif
