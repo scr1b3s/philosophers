@@ -21,7 +21,7 @@ jobs:
         gcc -o test_parse philo/tests/test_parse_input.c -lcriterion
 
     - name: Run ft_atol tests
-      run: ./test_ft_atol
+      run: ./test_ft_atol -v
 
     - name: Run parse_input tests
-      run: ./test_parse
+      run: ./test_parse -v
