@@ -12,22 +12,22 @@ void redirect_all_std(void)
 
 TestSuite(parse_input_suite, .init = redirect_all_std);
 
-Test(parse_input_suite, test_fewer_than_5_arguments) {
+Test(parse_input_suite, test_fewer_than_5_arguments, .exit_code = 1) {
     t_table table;
     char *args[] = {"program", "5", "200", "200", "200"};
     int argc = 4;
 
     cr_log_info("Testing with fewer than 5 arguments");
-    cr_assert_exit(parse_input(&table, argc, args), 1, "Expected exit with code 1, but got %d", parse_input(&table, argc, args));
+    cr_asset_eq(parse_input(&table, argc, args), 1, "Expected exit with code 1, but got %d", parse_input(&table, argc, args));
 }
 
-Test(parse_input_suite, test_more_than_6_arguments) {
+Test(parse_input_suite, test_more_than_6_arguments, .exit_code = 1) {
     t_table table;
     char *args[] = {"program", "5", "200", "200", "200", "5", "extra"};
     int argc = 7;
 
     cr_log_info("Testing with more than 6 arguments");
-    cr_assert_exit(parse_input(&table, argc, args), 1, "Expected exit with code 1, but got %d", parse_input(&table, argc, args));
+    cr_asset_eq(parse_input(&table, argc, args), 1, "Expected exit with code 1, but got %d", parse_input(&table, argc, args));
 }
 
 Test(parse_input_suite, test_valid_input) {
@@ -44,31 +44,31 @@ Test(parse_input_suite, test_valid_input) {
     cr_assert_eq(table.num_meals, -1, "Expected num_meals -1, but got %ld", table.num_meals);
 }
 
-Test(parse_input_suite, test_negative_philosophers) {
+Test(parse_input_suite, test_negative_philosophers, .exit_code = 1) {
     t_table table;
     char *args[] = {"program", "-5", "200", "200", "200"};
     int argc = 5;
 
     cr_log_info("Testing with negative number of philosophers");
-    cr_assert_exit(parse_input(&table, argc, args), 1, "Expected exit with code 1, but got %d", parse_input(&table, argc, args));
+    cr_asset_eq(parse_input(&table, argc, args), 1, "Expected exit with code 1, but got %d", parse_input(&table, argc, args));
 }
 
-Test(parse_input_suite, test_timestamps_less_than_60ms) {
+Test(parse_input_suite, test_timestamps_less_than_60ms, .exit_code = 1) {
     t_table table;
     char *args[] = {"program", "5", "50", "50", "50"};
     int argc = 5;
 
     cr_log_info("Testing with timestamps less than 60ms");
-    cr_assert_exit(parse_input(&table, argc, args), 1, "Expected exit with code 1, but got %d", parse_input(&table, argc, args));
+    cr_asset_eq(parse_input(&table, argc, args), 1, "Expected exit with code 1, but got %d", parse_input(&table, argc, args));
 }
 
-Test(parse_input_suite, test_philosophers_over_INT_MAX) {
+Test(parse_input_suite, test_philosophers_over_INT_MAX, .exit_code = 1) {
     t_table table;
     char *args[] = {"program", "2147483648", "200", "200", "200"};
     int argc = 5;
 
     cr_log_info("Testing with number of philosophers over INT_MAX");
-    cr_assert_exit(parse_input(&table, argc, args), 1, "Expected exit with code 1, but got %d", parse_input(&table, argc, args));
+    cr_asset_eq(parse_input(&table, argc, args), 1, "Expected exit with code 1, but got %d", parse_input(&table, argc, args));
 }
 
 Test(parse_input_suite, test_valid_input_without_optional_meals) {
