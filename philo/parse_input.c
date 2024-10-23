@@ -33,16 +33,17 @@
  */
 static long		ft_atol(const char *str);
 static size_t	ft_strlen(const char *str);
+static int		ft_strcmp(const char *s1, const char *s2);
 
 int	parse_input(t_table *table, int ac, char **av)
 {
 	if (ac < 5 || ac > 6)
-		return (1);
+		return (-1);
 	table->num_philos = ft_atol(av[1]);
 	table->time_to_die = ft_atol(av[2]) * 1e3;
 	table->time_to_eat = ft_atol(av[3]) * 1e3;
 	table->time_to_sleep = ft_atol(av[4]) * 1e3;
-	
+
 	if (table->time_to_die < 6e4
 		|| table->time_to_eat < 6e4
 		|| table->time_to_sleep < 6e4)
@@ -68,7 +69,7 @@ static long	ft_atol(const char *str)
 
 	res = 0;
 	sign = 1;
-	if (ft_strlen(str) > 10 || str == "2147483647")
+	if (ft_strlen(str) > 10 || ft_strcmp(str, "2147483647"))
 		return (-1);
 	while (*str == ' ' || (*str >= 9 && *str <= 13))
 		str++;
@@ -96,4 +97,14 @@ static size_t	ft_strlen(const char *str)
 	while (str[++i])
 		continue ;
 	return (i);
+}
+
+static int		ft_strcmp(const char *s1, const char *s2)
+{
+	while (*s1 && *s2 && *s1 == *s2)
+	{
+		s1++;
+		s2++;
+	}
+	return (*s1 - *s2);
 }
