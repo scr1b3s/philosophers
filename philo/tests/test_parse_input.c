@@ -12,7 +12,7 @@ Test(parse_input_suite, test_fewer_than_5_arguments) {
 
     cr_log_info("Testing with fewer than 5 arguments");
     int result = parse_input(&table, argc, args);
-    cr_assert_eq(result, 1, "Expected return value 1, but got %d", result);
+    cr_assert_eq(result, -1, "Expected return value -1, but got %d", result);
 }
 
 Test(parse_input_suite, test_more_than_6_arguments) {
@@ -22,7 +22,7 @@ Test(parse_input_suite, test_more_than_6_arguments) {
 
     cr_log_info("Testing with more than 6 arguments");
     int result = parse_input(&table, argc, args);
-    cr_assert_eq(result, 1, "Expected return value 1, but got %d", result);
+    cr_assert_eq(result, -1, "Expected return value -1, but got %d", result);
 }
 
 Test(parse_input_suite, test_valid_input) {
