@@ -37,11 +37,11 @@ Test(parse_input_suite, test_valid_input) {
 
     cr_log_info("Testing with valid input");
     parse_input(&table, argc, args);
-    cr_assert_eq(table.num_philos, 5, "Expected 5 philosophers, but got %ld", table.num_philos);
-    cr_assert_eq(table.time_to_die, 200000, "Expected time_to_die 200000, but got %ld", table.time_to_die);
-    cr_assert_eq(table.time_to_eat, 200000, "Expected time_to_eat 200000, but got %ld", table.time_to_eat);
-    cr_assert_eq(table.time_to_sleep, 200000, "Expected time_to_sleep 200000, but got %ld", table.time_to_sleep);
-    cr_assert_eq(table.num_meals, -1, "Expected num_meals -1, but got %ld", table.num_meals);
+    cr_assert_eq(table.num_philos, 5, "Expected 5 philosophers, but got %d", table.num_philos);
+    cr_assert_eq(table.time_to_die, 200000, "Expected time_to_die 200000, but got %d", table.time_to_die);
+    cr_assert_eq(table.time_to_eat, 200000, "Expected time_to_eat 200000, but got %d", table.time_to_eat);
+    cr_assert_eq(table.time_to_sleep, 200000, "Expected time_to_sleep 200000, but got %d", table.time_to_sleep);
+    cr_assert_eq(table.num_meals, -1, "Expected num_meals -1, but got %d", table.num_meals);
 }
 
 Test(parse_input_suite, test_negative_philosophers, .exit_code = 1) {
@@ -78,5 +78,5 @@ Test(parse_input_suite, test_valid_input_without_optional_meals) {
 
     cr_log_info("Testing with valid input but without optional meals argument");
     parse_input(&table, argc, args);
-    cr_assert_eq(table.num_meals, -1, "Expected num_meals -1, but got %ld", table.num_meals);
+    cr_assert_eq(table.num_meals, -1, "Expected num_meals -1, but got %d", table.num_meals);
 }
