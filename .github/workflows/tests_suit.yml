@@ -19,7 +19,7 @@ jobs:
       run: |
         gcc -o test_ft_atol philo/tests/test_ft_atol.c -lcriterion
         gcc -o test_parse philo/tests/test_parse_input.c -lcriterion
-        gcc -o test_safe_func philo/tests/test_safe_func.c -lcriterion
+        gcc -o test_safe_func philo/tests/test_safe_funcs.c -lcriterion
 
     - name: Run ft_atol tests
       run: ./test_ft_atol --verbose
