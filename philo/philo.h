@@ -15,12 +15,24 @@
 
 # include <pthread.h>  // mutex: init, destroy, lock, unlock...
 						// thread: create, join, detach...
+# include <errno.h>    // error handling in mtx
 # include <limits.h>   // INT_MAX
 # include <stdbool.h>  // bool, true, false, just like it, can comment later.
 # include <stdio.h>    // printf
 # include <stdlib.h>   // malloc, free
 # include <sys/time.h> // gettimeofday -> basic cronometer func.
 # include <unistd.h>   // write, usleep
+
+typedef enum e_opcode_mtx
+{
+	LOCK,
+	UNLOCK,
+	INIT,
+	DESTROY,
+	CREATE,
+	JOIN,
+	DETACH,
+}						t_opcode_mtx;
 
 /* Structures.
  *
@@ -150,6 +162,19 @@ struct					s_philo
 
 /* Functions.
  */
-void		parse_input(t_table *table, int ac, char **av);
+
+/**
+ * Parse Input
+ * @brief Parses the input arguments and stores them in the table.
+ *
+ * @param table A pointer to the table structure.
+ * @param ac The number of arguments.
+ * @param av The input arguments.
+ */
+void					parse_input(t_table *table, int ac, char **av);
+void					*safe_thread_handle(pthread_t *thread,
+							void *(*foo)(void *), void *data,
+							t_opcode_mtx opcode);
+void					*safe_mutex_handle(t_mtx *mtx, t_opcode_mtx opcode);
 
 #endif
