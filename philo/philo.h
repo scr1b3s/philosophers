@@ -152,8 +152,8 @@ struct					s_philo
 	bool				full;
 	long				last_meal_time;
 
-	t_fork				*left_fork;
-	t_fork				*right_fork;
+	t_fork				*first_fork;
+	t_fork				*second_fork;
 
 	pthread_t			thread_id;
 
@@ -171,10 +171,12 @@ struct					s_philo
  * @param ac The number of arguments.
  * @param av The input arguments.
  */
+void	*safe_malloc(size_t bytes);
 void					parse_input(t_table *table, int ac, char **av);
 void					*safe_thread_handle(pthread_t *thread,
 							void *(*foo)(void *), void *data,
 							t_opcode_mtx opcode);
 void					*safe_mutex_handle(t_mtx *mtx, t_opcode_mtx opcode);
+void    data_init(t_table *table);
 
 #endif
