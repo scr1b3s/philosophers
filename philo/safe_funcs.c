@@ -38,6 +38,22 @@ void	*safe_malloc(size_t bytes)
 
 /* Threads: */
 
+/**
+ * Thread Errors
+ * @brief This function initializes the mutex handle and error to threads.
+ *
+ * This function is responsible for setting up the mutex handle and error
+ * handling mechanisms for the threads. It ensures that the mutex is properly
+ * initialized and that any errors encountered during the thread operations
+ * are appropriately managed.
+ *
+ * @param mutex_handle A pointer to the mutex handle that will be initialized.
+ * @param error A pointer to an error variable that will be used to capture
+ *              any errors encountered during thread operations.
+ *
+ * @return Returns 0 on success, or a non-zero error code on failure.
+ */
+
 static void	thread_errors(int stat, t_opcode_mtx opcode)
 {
 	if (stat != 0)
@@ -61,6 +77,22 @@ static void	thread_errors(int stat, t_opcode_mtx opcode)
 		return ;
 }
 
+/**
+ * Safe Thread Handle
+ * @file safe_funcs.c
+ * @brief This file contains functions that handle thread operations safely.
+ *
+ * @param thread A pointer to the thread to be managed.
+ * @param foo A function pointer to the thread's start routine.
+ * @param data A pointer to the data to be passed to the thread's start routine.
+ * @param opcode The operation code indicating the thread operation to perform:
+ * - CREATE: Create a new thread.
+ * - JOIN: Wait for a thread to terminate.
+ * - DETACH: Detach a thread, allowing it to run independently.
+ * 
+ * @return Returns NULL on success.
+ * @return Exits the program on failure.
+ */
 void	*safe_thread_handle(pthread_t *thread, void *(*foo)(void *), void *data,
 		t_opcode_mtx opcode)
 {

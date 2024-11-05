@@ -23,6 +23,8 @@
 # include <sys/time.h> // gettimeofday -> basic cronometer func.
 # include <unistd.h>   // write, usleep
 
+# define DEBUG_MODE 1
+
 typedef enum e_opcode_mtx
 {
 	LOCK,
@@ -33,6 +35,23 @@ typedef enum e_opcode_mtx
 	JOIN,
 	DETACH,
 }						t_opcode_mtx;
+
+typedef enum e_time_code
+{
+	SECOND,
+	MILLISECOND,
+	MICROSECOND,
+}						t_time_code;
+
+typedef enum e_status
+{
+	DEAD,
+	EATING,
+	SLEEPING,
+	THINKING,
+	FIRST_FORK,
+	SECOND_FORK,
+}						t_philo_status;
 
 /* Structures.
  *
@@ -114,6 +133,11 @@ typedef struct s_table
 
 	t_philo				*philos;
 	t_fork				*forks;
+
+	bool				all_philos_ready;
+
+	t_mtx				table_mtx;
+	t_mtx				write_mtx;
 }						t_table;
 
 /**
@@ -158,6 +182,8 @@ struct					s_philo
 	pthread_t			thread_id;
 
 	t_table				*table;
+
+	t_mtx				philo_mtx;
 };
 
 /* Functions.
@@ -171,12 +197,23 @@ struct					s_philo
  * @param ac The number of arguments.
  * @param av The input arguments.
  */
-void	*safe_malloc(size_t bytes);
 void					parse_input(t_table *table, int ac, char **av);
+void					*safe_malloc(size_t bytes);
 void					*safe_thread_handle(pthread_t *thread,
 							void *(*foo)(void *), void *data,
 							t_opcode_mtx opcode);
 void					*safe_mutex_handle(t_mtx *mtx, t_opcode_mtx opcode);
-void    data_init(t_table *table);
+void					data_init(t_table *table);
+void					set_bool(t_mtx *mtx, bool *var, bool value);
+bool					get_bool(t_mtx *mtx, bool *var);
+void					set_long(t_mtx *mtx, long *var, long value);
+long					get_long(t_mtx *mtx, long *var);
+bool					simulation_finisihed(t_table *table);
+void					wait_all_threads(t_table *table);
+long					get_time(t_time_code time_code);
+void					precise_usleep(long usec, t_table *table);
+void    write_status(t_philo_status status, t_philo *philo, bool debug);
+void    dinner_start(t_table *table);
+
 
 #endif

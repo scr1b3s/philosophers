@@ -42,6 +42,7 @@ static void	philo_init(t_table *table)
 		philo->full = false;
 		philo->meals_count = 0;
 		philo->table = table;
+		safe_mutex_handle(&philo->philo_mtx, INIT);
 		assign_forks(philo, table->forks, i);
 	}
 }
@@ -61,6 +62,9 @@ void	data_init(t_table *table)
 	else
 	{
 		table->end_simulation = false;
+		table->all_philos_ready = false;
+		safe_mutex_handle(&table->table_mtx, INIT);
+		safe_mutex_handle(&table->write_mtx, INIT);
 		table->philos = safe_malloc(sizeof(t_philo) * table->num_philos);
 		table->forks = safe_malloc(sizeof(t_fork) * table->num_philos);
 		i = -1;

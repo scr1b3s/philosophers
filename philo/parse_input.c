@@ -56,6 +56,9 @@ void	parse_input(t_table *table, int ac, char **av)
 	if (table->num_philos == -1 || table->time_to_die == -1000
 		|| table->time_to_eat == -1000 || table->time_to_sleep == -1000)
 		exit(1);
+	if (table->num_philos == 0 || table->time_to_die == 0
+		|| table->time_to_eat == 0 || table->time_to_sleep == 0)
+		exit(1);
 	if (ac == 6)
 		table->num_meals = ft_atol(av[5]);
 	else

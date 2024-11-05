@@ -26,21 +26,17 @@ int	main(int ac, char **av)
     // We check if the number of arguments is correct.
     if (ac == 5 || ac == 6)
     {
-        // Correct number of args.
-        // Must check the values of the arguments now.
-
-        // TODO: Parse Input.
-        // TODO: Check for errors in the input.
-        parse_input(&table, av);
+        // We parse the input arguments and store them in the table.
+        parse_input(&table, ac, av);
 
         // TODO: Initialize the table.
         data_init(&table);
 
-        // TODO: Start the simulation.
+        // // TODO: Start the simulation.
         dinner_start(&table);
 
-        // TODO: Clean up the table. -> Philos Full or 1 Philo Died.
-        cleaning_time(&table);
+        // // TODO: Clean up the table. -> Philos Full or 1 Philo Died.
+        // cleaning_time(&table);
     }
     else
     {
