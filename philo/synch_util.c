@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   synch_util.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: k-maru <scribearm@gmail.com>               +#+  +:+       +#+        */
+/*   By: andrde-s <andrde-s@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 21:31:56 by k-maru            #+#    #+#             */
-/*   Updated: 2024/10/28 21:31:57 by k-maru           ###   ########.fr       */
+/*   Updated: 2024/11/27 21:26:50 by andrde-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,26 @@ void	wait_all_threads(t_table *table)
 {
 	while (!get_bool(&table->table_mtx, &table->all_philos_ready))
 		continue ;
+}
+
+bool    all_threads_running(t_mtx *mtx, long *threads, long philo_nbr)
+{
+    bool   threads_ready;
+    
+    threads_ready = false;
+    safe_mutex_handle(mtx, LOCK);
+    if (*threads == philo_nbr)
+        threads_ready = true;
+    safe_mutex_handle(mtx, UNLOCK);
+
+    return (threads_ready);
+}
+
+void    add_long(t_mtx *mtx, long *var)
+{
+    safe_mutex_handle(mtx, LOCK);
+    *var += 1;
+    safe_mutex_handle(mtx, UNLOCK);
 }
 
 long    get_time(t_time_code time_code)

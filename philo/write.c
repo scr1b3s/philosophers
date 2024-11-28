@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   write.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: k-maru <scribearm@gmail.com>               +#+  +:+       +#+        */
+/*   By: andrde-s <andrde-s@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/28 22:07:45 by k-maru            #+#    #+#             */
-/*   Updated: 2024/10/28 22:07:47 by k-maru           ###   ########.fr       */
+/*   Created: 2024/11/27 21:23:11 by k-maru            #+#    #+#             */
+/*   Updated: 2024/11/27 21:26:54 by andrde-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,6 @@ static  void write_debug_status(t_philo_status status, t_philo *philo, long time
     && !simulation_finisihed(philo->table))
         printf("%-6ld %d is thinking\n", time, philo->id);
     else if (status == DEAD
-    && !simulation_finisihed(philo->table))
+    && simulation_finisihed(philo->table))
         printf("%-6ld %d died\n", time, philo->id);
 }

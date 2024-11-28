@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: k-maru <scribearm@gmail.com>               +#+  +:+       +#+        */
+/*   By: andrde-s <andrde-s@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/21 00:33:30 by k-maru            #+#    #+#             */
-/*   Updated: 2024/10/21 00:33:31 by k-maru           ###   ########.fr       */
+/*   Created: 2024/11/27 21:19:59 by k-maru            #+#    #+#             */
+/*   Updated: 2024/11/27 21:26:46 by andrde-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 # include <sys/time.h> // gettimeofday -> basic cronometer func.
 # include <unistd.h>   // write, usleep
 
-# define DEBUG_MODE 1
+# define DEBUG_MODE 0
 
 typedef enum e_opcode_mtx
 {
@@ -135,9 +135,12 @@ typedef struct s_table
 	t_fork				*forks;
 
 	bool				all_philos_ready;
+	long				philos_ready;
 
 	t_mtx				table_mtx;
 	t_mtx				write_mtx;
+
+	pthread_t			monitor_thread;
 }						t_table;
 
 /**
@@ -214,6 +217,12 @@ long					get_time(t_time_code time_code);
 void					precise_usleep(long usec, t_table *table);
 void    write_status(t_philo_status status, t_philo *philo, bool debug);
 void    dinner_start(t_table *table);
-
+bool    all_threads_running(t_mtx *mtx, long *threads, long philo_nbr);
+void    add_long(t_mtx *mtx, long *var);
+void    *dinner_simulation(void *data);
+void    *monitor_dinner(void *data);
+void    cleaning_table(t_table *table);
+void    desynch_philo(t_philo *philo);
+void 	think(t_philo *philo);
 
 #endif

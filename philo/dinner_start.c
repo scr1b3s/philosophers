@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dinner_start.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: k-maru <scribearm@gmail.com>               +#+  +:+       +#+        */
+/*   By: andrde-s <andrde-s@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/28 19:25:44 by k-maru            #+#    #+#             */
-/*   Updated: 2024/10/28 19:25:45 by k-maru           ###   ########.fr       */
+/*   Created: 2024/11/27 21:20:35 by k-maru            #+#    #+#             */
+/*   Updated: 2024/11/27 21:27:04 by andrde-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,45 @@
  */
 
 // TODO: Play w/ thinking.
-static void think(t_philo *philo)
+void think(t_philo *philo)
 {
+    long    t_eat;
+    long    t_sleep;
+    long    t_think;
+
     write_status(THINKING, philo, DEBUG_MODE);
+
+    if (philo->table->num_philos % 2 == 0)
+        return ;
+
+    t_eat = philo->table->time_to_eat;
+    t_sleep = philo->table->time_to_sleep;
+    t_think = t_eat * 2 - t_sleep;
+
+    if (t_think < 0)
+        t_think = 0;
+    
+    precise_usleep(t_think * 0.42, philo->table);
+
+}
+
+void    *lone_philo(void *data)
+{
+    t_philo *philo;
+
+    philo = (t_philo *)data;
+    wait_all_threads(philo->table);
+
+    set_long(&philo->philo_mtx, &philo->last_meal_time, get_time(MILLISECOND));
+
+    add_long(&philo->table->table_mtx, &philo->table->philos_ready);
+
+    write_status(FIRST_FORK, philo, DEBUG_MODE);
+    
+    while (!simulation_finisihed(philo->table))
+        usleep(200);
+
+    return (NULL);
 }
 
 static void eat(t_philo *philo)
@@ -53,6 +89,12 @@ void *dinner_simulation(void *data)
 
     philo = (t_philo *)data;
     wait_all_threads(philo->table);
+
+    set_long(&philo->philo_mtx, &philo->last_meal_time, get_time(MILLISECOND));
+
+    add_long(&philo->table->table_mtx, &philo->table->philos_ready);
+
+    desynch_philo(philo);
 
     // Last meal time.
     while (!simulation_finisihed(philo->table))
@@ -95,18 +137,18 @@ void    dinner_start(t_table *table)
     if (table->num_meals == 0)
         return ;
     else if (table->num_philos == 1)
-    {
-        // TODO: One Philosopher Only.
-    }
+        safe_thread_handle(&table->philos[0].thread_id, lone_philo, &table->philos[0], CREATE);
     else
     {
         while (++i < table->num_philos)
-            // TODO: Dinner Simulation.
             safe_thread_handle(&table->philos[i].thread_id,
             dinner_simulation,
             &table->philos[i],
             CREATE);
     }
+
+    // Monitoring the Philosophers
+    safe_thread_handle(&table->monitor_thread, monitor_dinner, table, CREATE);
 
     // Start the simulation.
     table->start_time = get_time(MILLISECOND);
@@ -119,5 +161,6 @@ void    dinner_start(t_table *table)
     while (++i < table->num_philos)
         safe_thread_handle(&table->philos[i].thread_id, NULL, NULL, JOIN);
 
-    dinner_simulation(table->philos);
+    set_bool(&table->table_mtx, &table->end_simulation, true);
+    safe_thread_handle(&table->monitor_thread, NULL, NULL, JOIN);
 }

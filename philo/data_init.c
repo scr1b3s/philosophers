@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   data_init.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: k-maru <scribearm@gmail.com>               +#+  +:+       +#+        */
+/*   By: andrde-s <andrde-s@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/23 10:02:55 by k-maru            #+#    #+#             */
-/*   Updated: 2024/10/23 10:02:56 by k-maru           ###   ########.fr       */
+/*   Created: 2024/11/27 21:20:29 by k-maru            #+#    #+#             */
+/*   Updated: 2024/11/27 21:26:30 by andrde-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ void	data_init(t_table *table)
 	{
 		table->end_simulation = false;
 		table->all_philos_ready = false;
+		table->philos_ready = 0;
 		safe_mutex_handle(&table->table_mtx, INIT);
 		safe_mutex_handle(&table->write_mtx, INIT);
 		table->philos = safe_malloc(sizeof(t_philo) * table->num_philos);
